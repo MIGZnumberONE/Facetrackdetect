@@ -1,0 +1,66 @@
+import cv2
+import sys
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton
+from PyQt5.QtCore import Qt
+
+# Öffne die Kamera
+cap = cv2.VideoCapture(0)
+
+# Lade den Gesichtserkennungsalgorithmus
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+
+# GUI-Klasse definieren
+class FaceDetectionGUI(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        # Beenden-Button erstellen
+        self.quit_button = QPushButton('Beenden', self)
+        self.quit_button.clicked.connect(self.quit)
+
+        # GUI-Layout erstellen
+        layout = QVBoxLayout()
+        layout.addWidget(self.quit_button)
+        self.setLayout(layout)
+
+    # Funktion, die die Schleife beendet
+    def quit(self):
+        cap.release()
+        cv2.destroyAllWindows()
+        QApplication.quit()
+
+# GUI erstellen
+app = QApplication(sys.argv)
+window = FaceDetectionGUI()
+window.show()
+
+# Schleife für die Echtzeitverarbeitung
+while True:
+    # Lese das aktuelle Frame
+    ret, frame = cap.read()
+
+    # Konvertiere das Frame in Graustufen für die Gesichtserkennung
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+    # Suche nach Gesichtern im Frame
+    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30), flags=cv2.CASCADE_SCALE_IMAGE)
+
+    # Zeichne einen Rahmen um jedes erkannte Gesicht
+    for (x, y, w, h) in faces:
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        cv2.putText(frame, "Human detected", (x, y-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+
+    # Zeige das Frame mit den Rahmen an
+    cv2.imshow('frame', frame)
+
+    # Beenden bei drücken der 'q' Taste
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+    # GUI-Events abfangen
+    app.processEvents()
+
+# Freigabe der Kamera und Schließung des Fensters
+cap.release()
+cv2.destroyAllWindows()
