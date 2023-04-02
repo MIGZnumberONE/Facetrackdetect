@@ -9,11 +9,11 @@ Die Anwendung verwendet Python 3 und die folgenden Bibliotheken:
 - PyQt5
 
 ## Installation
-Installieren Sie Python 3 und pip.
 Führen Sie den folgenden Befehl aus, um die erforderlichen Bibliotheken zu installieren: 
 ```
 pip install opencv-python PyQt5
 ```
+
 Klonen Sie dieses Repository.
 
 ## Verwendung
@@ -28,7 +28,7 @@ Klicken Sie auf die Schaltfläche "Beenden", um die Anwendung zu beenden.
 ## Anmerkungen
 Die Echtzeit-Gesichtserkennung wird gestoppt, wenn Sie die 'q'-Taste drücken oder das GUI-Fenster schließen.
 Das Programm erfordert eine funktionierende Kamera an Ihrem Computer.
-Der Gesichtserkennungsalgorithmus ist nicht perfekt und kann Fehler machen. Verlassen Sie sich daher nicht ausschließlich auf diese Anwendung für kritische Aufgaben.
+Der Gesichtserkennungsalgorithmus ist nicht perfekt und kann zu Fehlern führen. Verlassen Sie sich daher nicht ausschließlich auf diese Anwendung für kritische Aufgaben.
 
 # Real-time face detection
 ####### ENGLISH:
@@ -59,4 +59,6 @@ Click the "Exit" button to exit the application.
 ## Remarks
 Real-time face recognition will be stopped when you press the 'q' key or close the GUI window.
 The program requires a working camera on your computer.
-The face recognition algorithm is not perfect and can make mistakes. Therefore, do not solely rely on this application for critical tasks.
+
+The facial recognition algorithm is not perfect and can lead to errors.
+Do not rely on this application for critical tasks.
